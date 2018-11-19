@@ -318,7 +318,7 @@ public class PingResult2 extends AppCompatActivity{
                                         if(code == 200)
                                         {
                                             Toast.makeText(PingResult2.this,"数据成功发送",Toast.LENGTH_LONG).show();
-                                            sleep(9000);
+                                            sleep(4000);
                                             finish();
 
                                         }
