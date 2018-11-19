@@ -75,6 +75,22 @@ public class PingResult1 extends AppCompatActivity{
     private SimpleDateFormat formatter;
     private Date curDate;
     private String str;
+    private int Time=10;
+    private Handler handler=new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what==0) {
+                if (Time>0) {
+                    //时间--
+                    Time--; //给时间赋值
+
+
+                    handler.sendEmptyMessageDelayed(0, 1000);
+                }else {
+                    finish();
+                }
+            }
+        };
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -330,8 +346,7 @@ public class PingResult1 extends AppCompatActivity{
                                         if(code == 200)
                                         {
                                             Toast.makeText(PingResult1.this,"数据成功发送",Toast.LENGTH_LONG).show();
-                                            sleep(4000);
-                                            finish();
+                                            handler.sendEmptyMessage(0);
 
                                         }
 
