@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PingResult1"></activity>
+        <activity android:name=".PingResult2"></activity>
     </application>
 
 </manifest>

@@ -23,17 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btn_ping;
     EditText et_ip, et_count, et_size, et_time;
     String ip, count, size, time;
-    String ip2,hip2,hip1,qip2,qip1,ship3,ship2,ship1,sip3,sip2,sip1;
+    String ip2,hip2,hip1,qip2,qip1,ship3,ship2,ship1,sip3,sip2,sip1,ynip;
     private String query;
+    private Intent intent1;
     private EditText edit_ip2;
     private Button btn_ping2;
-    private String countCmd;
-    private String sizeCmd;
-    private String timeCmd;
-    private String ip_adress;
-    private String ping;
-    private Intent intent;
-    private Bundle bundle;
     private Button sbtn_ping1;
     private Button sbtn_ping2;
     private Button sbtn_ping3;
@@ -54,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText qedit_ip2;
     private EditText hedit_ip1;
     private EditText hedit_ip2;
+    private Button ynbtn_ping;
+    private EditText ynedit_ip;
     private String city;
     private String regionName;
     private String org;
@@ -75,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         qbtn_ping2.setOnClickListener(this);
         hbtn_ping1.setOnClickListener(this);
         hbtn_ping2.setOnClickListener(this);
-
+        ynbtn_ping.setOnClickListener(this);
         try {
             RetrofitUtils.getInstance().getMyServer().ping()
                     .subscribeOn(Schedulers.io())
@@ -161,7 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         hedit_ip1 = findViewById(R.id.hedit_ip1);
         hedit_ip2 = findViewById(R.id.hedit_ip2);
 
-
+        ynbtn_ping = findViewById(R.id.ynbtn_ping);
+        ynedit_ip = findViewById(R.id.ynedit_ip);
     }
 
     @Override
@@ -502,6 +500,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bundle.putString("org",org);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                break;
+            case R.id.ynbtn_ping:
+
+                ynip = ynedit_ip.getText().toString();
+                count = et_count.getText().toString();
+                size = et_size.getText().toString();
+                time = et_time.getText().toString();
+
+                countCmd = " -c " + count + " ";
+                sizeCmd = " -s " + size + " ";
+                timeCmd = " -i " + time + " ";
+                ip_adress = ynip;
+                ping = "ping" + countCmd + timeCmd + sizeCmd + ip_adress;
+
+                intent1 = new Intent();
+                intent1.setClass(MainActivity.this, PingResult2.class);
+                // new一个Bundle对象，并将要传递的数据传入
+                bundle = new Bundle();
+                bundle.putString("ping", ping);
+                bundle.putString("ip", ynip);
+                bundle.putString("count", count);
+                bundle.putString("size", size);
+                bundle.putString("time", time);
+                bundle.putString("query",query);
+                bundle.putString("city",city);
+                bundle.putString("regionName",regionName);
+                bundle.putString("org",org);
+                intent1.putExtras(bundle);
+                startActivity(intent1);
                 break;
 
         }

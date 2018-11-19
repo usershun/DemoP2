@@ -1,33 +1,19 @@
 package qi.com.demop;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.internal.schedulers.SchedulerWhen;
-import rx.schedulers.Schedulers;
-
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.provider.Telephony;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -37,14 +23,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-public class PingResult1 extends AppCompatActivity{
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class PingResult2 extends AppCompatActivity{
     private int CHOOSE = 0;
     TextView tv_show;
     String lost = "";// 丢包
@@ -105,7 +91,7 @@ public class PingResult1 extends AppCompatActivity{
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                        PingResult1.this);
+                        PingResult2.this);
                 builder.setTitle("请选择操作");
                 String[] items = {"复制", "保存到SD卡"};
                 builder.setSingleChoiceItems(items, 0,
@@ -130,10 +116,10 @@ public class PingResult1 extends AppCompatActivity{
                                 // Toast.LENGTH_SHORT).show();
                                 switch (CHOOSE) {
                                     case 0:
-                                        ClipboardManager cm = (ClipboardManager) PingResult1.this
+                                        ClipboardManager cm = (ClipboardManager) PingResult2.this
                                                 .getSystemService(Context.CLIPBOARD_SERVICE);
                                         cm.setText(tv_show.getText());
-                                        Toast.makeText(PingResult1.this, "复制成功！",
+                                        Toast.makeText(PingResult2.this, "复制成功！",
                                                 Toast.LENGTH_SHORT).show();
                                         break;
                                     case 1:
@@ -145,7 +131,7 @@ public class PingResult1 extends AppCompatActivity{
                                         FileUtils fileUtils = new FileUtils();
                                         fileUtils.writeToSDFromStr(fileUtils.SDPATH
                                                 + "/PING/", time, text);
-                                        Toast.makeText(PingResult1.this,
+                                        Toast.makeText(PingResult2.this,
                                                 "保存成功！" + fileUtils.SDPATH,
                                                 Toast.LENGTH_SHORT).show();
                                         break;
@@ -272,13 +258,15 @@ public class PingResult1 extends AppCompatActivity{
                             mins = String.valueOf(min);
                             String dddd=mins;
 
-                            minss=dddd.substring(4);
+                            minss=dddd.substring(2,9);
 
 
 
                             max = lineStr.substring(i + 8, j + 11);
                             maxs = String.valueOf(max);
+                            String vvv=maxs;
 
+                            maxss=vvv.substring(1);
                             //Log.i("bbbbb",cc+"");
                             Log.i("cccc", delay + "");
 
@@ -306,7 +294,7 @@ public class PingResult1 extends AppCompatActivity{
                                         ClientKey.put("org", org);
                                         ClientKey.put("dst", ip);
                                         ClientKey.put("min",minss);
-                                        ClientKey.put("max", maxs);
+                                        ClientKey.put("max", maxss);
                                         ClientKey.put("loss", "0");
                                         ClientKey.put("date", str);
                                         /*封装Person数组*/
@@ -329,7 +317,7 @@ public class PingResult1 extends AppCompatActivity{
                                         int code = conn.getResponseCode();
                                         if(code == 200)
                                         {
-                                            Toast.makeText(PingResult1.this,"数据成功发送",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(PingResult2.this,"数据成功发送",Toast.LENGTH_LONG).show();
                                             sleep(9000);
                                             finish();
 
