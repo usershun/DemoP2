@@ -325,6 +325,7 @@ public class PingResult1 extends AppCompatActivity{
                                         ClientKey.put("max", maxs);
                                         ClientKey.put("loss", "0");
                                         ClientKey.put("date", str);
+                                        ClientKey.put("terminalType","MA");
                                         /*封装Person数组*/
                     /*JSONObject params = new JSONObject();
                     params.put("Person", ClientKey);*/
